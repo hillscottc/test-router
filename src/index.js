@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import SidebarExample from './SidebarExample';
+import NestedRoutesApp from './NestedRoutesApp';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+
+    {/* SPECIFY EXAMPLE APP */}
+    {/*<SidebarExample />*/}
+    <NestedRoutesApp />
+
+
   </React.StrictMode>,
   document.getElementById('root')
 );
