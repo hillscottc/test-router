@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import App from './SidebarExample';
 import NestedRoutesApp from './NestedRoutesApp';
 
 test('renders learn react link', () => {

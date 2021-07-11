@@ -1,5 +1,7 @@
 import React from "react";
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Link, Switch} from "react-router-dom";
+import {RouteWithSubRoutes} from "./RouteWithSubRoutes";
+import RouteContentWrapper from "./RouteContentWrapper";
 
 
 const routes = [
@@ -23,20 +25,6 @@ const routes = [
     }
 ];
 
-
-// A wrapper for <Route> that handles "sub"-routes by passing them as
-// `routes` prop to the component it renders.
-function RouteWithSubRoutes(route) {
-    return (
-        <Route
-            path={route.path}
-            render={props => (
-                // pass the sub-routes down to keep nesting
-                <route.component {...props} routes={route.routes}/>
-            )}
-        />
-    );
-}
 
 export default function NestedRoutesApp() {
     return (
@@ -65,33 +53,54 @@ function Sandwiches() {
     return <h2>Sandwiches</h2>;
 }
 
-function Tacos({ routes }) {
-    return (
-        <div>
-            <h2>Tacos</h2>
-            <div>
-                <div className='mainLeftCol'>
-                    <ul>
-                        <li>
-                            <Link to="/tacos/bus">Bus</Link>
-                        </li>
-                        <li>
-                            <Link to="/tacos/cart">Cart</Link>
-                        </li>
-                    </ul>
-                </div>
 
-                <div className='mainRightCol'>
-                    <Switch>
-                        {routes.map((route, i) => (
-                            <RouteWithSubRoutes key={i} {...route} />
-                        ))}
-                    </Switch>
-                </div>
-            </div>
-        </div>
-    );
+function Tacos({ routes }) {
+    const title = 'Tacos'
+    const leftNav = (
+        <ul>
+            <li>
+                <Link to="/tacos/bus">Bus</Link>
+            </li>
+            <li>
+                <Link to="/tacos/cart">Cart</Link>
+            </li>
+        </ul>
+    )
+    return (
+        <RouteContentWrapper
+            {...{title, leftNav, routes}}
+        />
+    )
 }
+
+
+// function Tacos({ routes }) {
+//     return (
+//         <div>
+//             <h2>Tacos</h2>
+//             <div>
+//                 <div className='mainLeftCol'>
+//                     <ul>
+//                         <li>
+//                             <Link to="/tacos/bus">Bus</Link>
+//                         </li>
+//                         <li>
+//                             <Link to="/tacos/cart">Cart</Link>
+//                         </li>
+//                     </ul>
+//                 </div>
+//
+//                 <div className='mainRightCol'>
+//                     <Switch>
+//                         {routes.map((route, i) => (
+//                             <RouteWithSubRoutes key={i} {...route} />
+//                         ))}
+//                     </Switch>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
 
 function Bus() {
     return <h3>Bus</h3>;
